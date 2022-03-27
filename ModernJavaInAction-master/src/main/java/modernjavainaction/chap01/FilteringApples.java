@@ -1,9 +1,12 @@
 package modernjavainaction.chap01;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
+
+import static java.util.stream.Collectors.toList;
 
 public class FilteringApples {
 
@@ -14,18 +17,24 @@ public class FilteringApples {
                 new Apple(120, "red")
         );
 
+        List<Apple> collect = inventory.stream().filter(apple -> "green".equals(apple.getColor())).collect(toList());
+
         // [Apple{color='green', weight=80}, Apple{color='green', weight=155}]
         List<Apple> greenApples = filterApples(inventory, FilteringApples::isGreenApple);
         System.out.println(greenApples);
 
-        List<Apple> greenApplesLambda = filterApples(inventory, (apple) -> "green".equals(apple.getColor()));
+        List<Apple> greenApplesLambda = filterApples(inventory, apple -> "green".equals(apple.getColor()));
         System.out.println(greenApplesLambda);
+
+        List<Apple> heavyApples1 = inventory.parallelStream()
+                .filter(a -> a.getWeight() > 150)
+                .collect(toList());
 
         // [Apple{color='green', weight=155}]
         List<Apple> heavyApples = filterApples(inventory, FilteringApples::isHeavyApple);
         System.out.println(heavyApples);
 
-        List<Apple> heavyApplesLambda = filterApples(inventory, (apple) -> apple.getWeight() > 150);
+        List<Apple> heavyApplesLambda = filterApples(inventory, apple -> apple.getWeight() > 150);
         System.out.println(heavyApplesLambda);
 
         // [Apple{color='green', weight=80}, Apple{color='green', weight=155}]
