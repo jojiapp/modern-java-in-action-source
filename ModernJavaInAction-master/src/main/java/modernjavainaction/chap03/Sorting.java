@@ -14,22 +14,34 @@ public class Sorting {
     public static void main(String... args) {
 
         List<Apple> apples = new ArrayList<>();
-        for (int i = 0; i < 10000000; i++) {
+        for (int i = 0; i < 90000000; i++) {
             apples.add(new Apple(i, Color.GREEN));
         }
 
         long startList = System.currentTimeMillis();
         List<Apple> listApples = new ArrayList<>();
         for (Apple apple : apples) {
-            if (apple.getWeight() > 50) {
+            if (apple.getWeight() > 90000000) {
                 listApples.add(apple);
             }
         }
         System.out.println("list time: " + (System.currentTimeMillis() - startList));
 
         long startStream = System.currentTimeMillis();
-        List<Apple> streamApples = apples.stream().filter(apple -> apple.getWeight() > 50000).collect(Collectors.toList());
+        List<Apple> streamApples = apples.stream().filter(apple -> apple.getWeight() > 90000000).collect(Collectors.toList());
         System.out.println("stream time: " + (System.currentTimeMillis() - startStream));
+
+        apples.stream()
+                .filter(apple -> {
+                    System.out.println("filter");
+                    return apple.getWeight() > 1;
+                })
+                .map(apple -> {
+                    System.out.println("map");
+                    return apple.getColor();
+                })
+                .limit(3)
+                .collect(Collectors.toList());
 
 
         // 1
