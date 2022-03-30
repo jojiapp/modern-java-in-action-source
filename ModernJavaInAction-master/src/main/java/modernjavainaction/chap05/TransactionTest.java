@@ -85,5 +85,7 @@ public class TransactionTest {
                 .map(Transaction::getValue)
                 .reduce(Integer::max)
                 .ifPresent(System.out::println);
+
+        //
     }
 }
