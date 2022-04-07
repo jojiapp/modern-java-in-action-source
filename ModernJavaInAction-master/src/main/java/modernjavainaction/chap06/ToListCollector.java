@@ -15,6 +15,7 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class ToListCollector<T> implements Collector<T, List<T>, List<T>> {
 
@@ -61,5 +62,15 @@ class Foo {
             List::add,
             List::addAll
     );
+
+    boolean b = Stream.of(1, 2, 3, 4, 5)
+            .filter(i -> i > 1)
+            .noneMatch(i -> {
+              System.out.println(i);
+              return i % 2 != 0;
+            });
+    System.out.println(b);
+
   }
+
 }
