@@ -1,5 +1,7 @@
 package modernjavainaction.chap06;
 
+import scala.Int;
+
 import static java.util.stream.Collector.Characteristics.IDENTITY_FINISH;
 import static java.util.stream.Collectors.partitioningBy;
 
@@ -35,6 +37,8 @@ public class PartitionPrimeNumbers {
         .limit((long) Math.floor(Math.sqrt(candidate)) - 1)
         .noneMatch(i -> candidate % i == 0);
   }
+
+
 
   public static Map<Boolean, List<Integer>> partitionPrimesWithCustomCollector(int n) {
     return IntStream.rangeClosed(2, n).boxed().collect(new PrimeNumbersCollector());
